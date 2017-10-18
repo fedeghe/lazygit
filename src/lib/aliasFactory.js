@@ -56,6 +56,16 @@ ___gunst() {
 }
 alias ${ns}unstage=___gunst
 
+
+# ======
+# Push origin to branch 
+#
+# 
+___gpusho() {
+    git push --set-upstream origin $1
+}
+alias ${ns}pusho=___gpusho
+
 # ======
 # Commit 
 #
@@ -66,6 +76,16 @@ ___gcomm() {
     git commit -m \${1:-"empty message"}
 }
 alias ${ns}commit=___gcomm
+
+# ======
+# Amend  
+#
+# replace the commit message
+# 
+___gamend() {
+    git commit -m \${1:-"empty message"} --amend 
+}
+alias ${ns}amend=___gamend
 
 # ==============================
 # Create a branch & check it out
@@ -129,12 +149,14 @@ echo "# git branch -a   ----------------> glsbranch"
 echo "# git log   ----------------------> glog"
 echo "# git pull   ---------------------> gpull"
 echo "# git push   ---------------------> gpush"
+echo "# git push --set-upstream origin [BR]   ---------------------> gpusho [BR]"
 echo "# git remote update   ------------> gupdate"
 echo "# git stash save   ---------------> gsavestash"
 echo "# git stash pop   ----------------> gpopstash"
 echo "# git add [PAR]|*   --------------> gadd {[PAR]}"
 echo "# git reset HEAD -- [PAR]|*   ----> gunstage {[PAR]}"
 echo "# git commit -m \\\"mymsg\\\"|\\\"\\\"   -----> gcommit {\\\"my msg\\\"}"
+echo "# git commit --amend -m \\\"mymsg\\\"|\\\"\\\"   -> gamend {\\\"my msg\\\"}"
 echo "# git branch -b \\\"brName\\\"   -------> gbranchnew \\\"brName\\\""
 echo "# git branch -d \\\"brName\\\"   -------> gbranchdel \\\"brName\\\""
 echo "# git checkout \\\"brName\\\"   --------> gcheckout \\\"brName\\\""
