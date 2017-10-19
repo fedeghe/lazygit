@@ -16,109 +16,114 @@ const mPromise = require('./promise'),
     },
     als= [{
         description: 'Alias to init a git repo',
-        ex: `this is the ${ns}i help`,
+        ex: `$ ${ns}i`,
         fname: ns + 'i',
         body: 'git init'
      },{
         description: 'Alias for getting the status',
-        ex: `this is the ${ns}st help`,
+        ex: `$ ${ns}st`,
         fname: ns + 'st',
         body: 'git status'
      },{
         description: 'Alias for getting the list of branches',
-        ex: `this is the ${ns}bls help`,
+        ex: `$ ${ns}bls`,
         fname: ns + 'bls',
         body: 'git branch -a'
      },{
         description: 'Alias for getting the log',
-        ex: `this is the ${ns}log help`,
+        ex: `$ ${ns}log`,
         fname: ns + 'log',
         body: 'git log'
      },{
         description: 'Alias for pull',
-        ex: `this is the ${ns}pull help`,
+        ex: `$ ${ns}pull`,
         fname: ns + 'pull',
         body: 'git pull'
      },{
         description: 'Alias for push',
-        ex: `this is the ${ns}push help`,
+        ex: `$ ${ns}push`,
         fname: ns + 'push',
         body: 'git push'
      },{
         description: 'Alias for remote update',
-        ex: `this is the ${ns}up help`,
+        ex: `$ ${ns}up`,
         fname: ns + 'up',
         body: 'git remote update'
      },{
         description: 'Alias for saving a stash',
-        ex: `this is the ${ns}ss help`,
+        ex: `$ ${ns}ss`,
         fname: ns + 'ss',
         body: 'git stash save'
      },{
         description: 'Alias for pop last stash',
-        ex: `this is the ${ns}sp help`,
+        ex: `$ ${ns}sp`,
         fname: ns + 'ss',
         body: 'git stash pop'
      },{
         description: 'Alias to UNcommit',
-        ex: `this is the ${ns}uncomm help`,
+        ex: `$ ${ns}uncomm`,
         fname: ns + 'uncommit',
         body: 'git reset --hard ^HEAD'
      }/**/,{
         description: 'Alias to stage',
-        ex: `this is the ${ns}add help`,
+        ex: `$ ${ns}add`,
         fname: ns + 'add',
         body: 'git add \${@:-*}'
      },{
         description: 'Alias to UNstage',
-        ex: `this is the ${ns}unstage help`,
+        ex: `$ ${ns}unstage [PAR [, ...]]`,
         fname: ns + 'unstage',
         body: 'git reset HEAD -- \${@:-*}'
      },{
         description: 'Alias to commit',
-        ex: `this is the ${ns}comm help`,
+        ex: `$ ${ns}comm "message_with_no_spaces" (default: "empty_message")`,
         fname: ns + 'comm',
-        body: 'git commit -m \${1:-"empty message"}'
+        body: 'git commit -m \${1:-"empty_message"}'
      },{
         description: 'Alias to amend last commit message',
-        ex: `this is the ${ns}amend help`,
+        ex: `$ ${ns}amend "rewritten message" (default: "empty_message")`,
         fname: ns + 'amend',
-        body: 'git commit -m \${1:-"empty message"} --amend'
+        body: 'git commit -m \${1:-"empty_message"} --amend'
      },{
         description: 'Alias to create a new branch and checkout',
-        ex: `this is the ${ns}br help`,
+        ex: `$ ${ns}br BRANCHNAME`,
         fname: ns + 'br',
         body: 'git checkout -b $1'
      },{
         description: 'Alias to delete a branch',
-        ex: `this is the ${ns}brdel help`,
+        ex: `$ ${ns}brdel BRANCHNAME`,
         fname: ns + 'brdel',
         body: 'git branch -d $1'
      },{
         description: 'Alias to checkout an existing branch',
-        ex: `this is the ${ns}co help`,
+        ex: `$ ${ns}co BRANCHNAME|TAG`,
         fname: ns + 'co',
         body: 'git checkout $1'
      },{
         description: 'Alias to revert non staged files passed',
-        ex: `this is the ${ns}rev help`,
+        ex: `$ ${ns}rev [FILE1 [, FILE2 ...]]`,
         fname: ns + 'rev',
         body: 'git checkout -- $@'
      },{
         description: 'Alias to revert non staged files passed',
-        ex: `this is the ${ns}rev help`,
+        ex: `$ ${ns}rev [FILE1 [, FILE2 ...]]`,
         fname: ns + 'rev',
         body: 'git checkout -- $@'
      },{
         description: 'Alias to add remote',
-        ex: `this is the ${ns}remoteadd help`,
+        ex: `${ns}remoteadd MYORIGIN`,
         fname: ns + 'remoteadd',
         body: 'git remote add origin $1'
      },{
-        description: 'Alias to list all help',
-        ex: `this is the ${ns}remoteadd help`,
-        fname: ns + 'remoteadd',
-        body: 'git remote add origin $1'
+        description: 'Alias to create a tag',
+        ex: `${ns}tag TAGNAME`,
+        fname: ns + 'tag',
+        body: 'git tag -a $1'
+     },{
+        description: 'Alias to list all tags',
+        ex: `${ns}tag`,
+        fname: ns + 'tag',
+        body: 'git tag'
      }
     
     ],
