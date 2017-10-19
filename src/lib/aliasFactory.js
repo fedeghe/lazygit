@@ -150,7 +150,7 @@ alias ${al.fname}=___${al.fname}
 ___${al.fname}H() {
     echo "${packageInfo.name}"
     echo "${al.fname}: ${al.description}"
-    echo "${al.ex}"
+    echo "${al.ex}  <---> ${al.body}"
 }
 alias ${al.fname}-=___${al.fname}H
         `;

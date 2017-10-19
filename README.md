@@ -32,6 +32,15 @@
 | git tag -a TAGNAME | gtag TAGNAME |
 | git tag | gtags |
 
+If You have doubts about what the command execute just add a dash at the end:  
+
+```
+$ gst-
+lazygit
+gst: Alias for getting the status
+gst  <--->  git status
+
+```
 
 ##### What it does  
 
