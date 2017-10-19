@@ -64,9 +64,7 @@ const mPromise = require('./promise'),
         ex: `this is the ${ns}uncomm help`,
         fname: ns + 'uncommit',
         body: 'git reset --hard ^HEAD'
-     }
-     
-     ,{
+     }/**/,{
         description: 'Alias to stage',
         ex: `this is the ${ns}add help`,
         fname: ns + 'add',
@@ -161,7 +159,7 @@ alias ${al.fname}-=___${al.fname}H
  */
 class aliasFactory {
     constructor() {
-        console.log(`\n# ${packageInfo.name} v ${packageInfo.version} #\n`.rainbow());
+        console.log(`\n# ${packageInfo.name} v ${version} #\n`.rainbow());
     }
     /**
      * 

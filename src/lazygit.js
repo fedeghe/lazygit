@@ -4,7 +4,7 @@ var AliasFactory = require('./lib/aliasFactory'),
 const args = process.argv.splice(2);
 
 if (args.length === 1) {
-    if (args[0] == '--uninstall') {
+    if (args[0] === '--uninstall') {
         af.uninstall();
     } else {
         console.log(`
