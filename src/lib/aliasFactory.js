@@ -57,7 +57,7 @@ const mPromise = require('./promise'),
      },{
         description: 'Alias for pop last stash',
         ex: `$ ${ns}sp`,
-        fname: ns + 'ss',
+        fname: ns + 'sp',
         body: 'git stash pop'
      },{
         description: 'Alias to UNcommit',
@@ -71,8 +71,8 @@ const mPromise = require('./promise'),
         body: 'git add \${@:-*}'
      },{
         description: 'Alias to UNstage',
-        ex: `$ ${ns}unstage [PAR [, ...]]`,
-        fname: ns + 'unstage',
+        ex: `$ ${ns}unst [PAR [, ...]]`,
+        fname: ns + 'unst',
         body: 'git reset HEAD -- \${@:-*}'
      },{
         description: 'Alias to commit',
@@ -105,10 +105,10 @@ const mPromise = require('./promise'),
         fname: ns + 'rev',
         body: 'git checkout -- $@'
      },{
-        description: 'Alias to revert non staged files passed',
-        ex: `$ ${ns}rev [FILE1 [, FILE2 ...]]`,
-        fname: ns + 'rev',
-        body: 'git checkout -- $@'
+        description: 'Alias to clone',
+        ex: `$ ${ns}clone REF`,
+        fname: ns + 'clone',
+        body: 'git clone $1'
      },{
         description: 'Alias to add remote',
         ex: `${ns}remoteadd MYORIGIN`,
@@ -121,8 +121,8 @@ const mPromise = require('./promise'),
         body: 'git tag -a $1'
      },{
         description: 'Alias to list all tags',
-        ex: `${ns}tag`,
-        fname: ns + 'tag',
+        ex: `${ns}tags`,
+        fname: ns + 'tags',
         body: 'git tag'
      }
     

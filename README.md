@@ -5,10 +5,33 @@
 > npm install lazygit
 ```
 
-#### Usage
-```
-> ghelp
-```
+#### Usage  
+
+| git command        | lazygit command|
+| ------------- |-------------|
+| git init      | gi |
+| git status | gst |
+| git branch -a | gbls |
+| git log | glog |
+| git pull | gpull |
+| git push | gpush |
+| git remote update | gup |
+| git stash save | gss |
+| git stash pop | gps |
+| git reset --hard ^HEAD | guncomm |
+| git add [PAR or *] | gadd {[PAR]} |
+| git reset HEAD -- [PAR or *] | gunst {[PAR]} |
+| git commit -m "mymsg\_no\_spaces" | gcomm {"mymsg\_no\_spaces"} |
+| git commit --amend -m "mymsg\_no\_spaces" | gamend {"my\_msg\_no\_spaces"} |
+| git branch -b "brName" | gbr "brName" |
+| git branch -d "brName" | gbrdel"brName" |
+| git checkout "brName" | gco "brName" |
+| git checkout -- [PAR] | grev [PAR] |
+| git clone REF | gclone REF |
+| git remote add origin REF | gaddrem REF |
+| git tag -a TAGNAME | gtag TAGNAME |
+| git tag | gtags |
+
 
 ##### What it does  
 
