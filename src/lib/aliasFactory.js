@@ -1,219 +1,222 @@
 require('./stringProto');
-const Promise = require('./promise'),
+const mPromise = require('./promise'),
     fs = require('fs'),
     path = require('path'),
-    child_process = require('child_process'),
     ns = 'g',
-    uhome = process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'],
+    uhome = process.env[(process.platform === 'win32') ? 'USERPROFILE' : 'HOME'],
     dstFile = '.bash_git',
-    dstPath = path.resolve(uhome, dstFile);
+    dstPath = path.resolve(uhome, dstFile),
     packageInfo = fs.existsSync(__dirname + '/../../package.json') ? require(__dirname + '/../../package.json') : {},
+    version = packageInfo.version,
     trg = {
         mac : [
             uhome + '/.bash_rc',
             uhome + '/.bash_profile'
         ]
     },
-    version = packageInfo.version,
-    aliases = `
+    als= [{
+        description: 'Alias to init a git repo',
+        ex: `this is the ${ns}i help`,
+        fname: ns + 'i',
+        body: 'git init'
+     },{
+        description: 'Alias for getting the status',
+        ex: `this is the ${ns}st help`,
+        fname: ns + 'st',
+        body: 'git status'
+     },{
+        description: 'Alias for getting the list of branches',
+        ex: `this is the ${ns}bls help`,
+        fname: ns + 'bls',
+        body: 'git branch -a'
+     },{
+        description: 'Alias for getting the log',
+        ex: `this is the ${ns}log help`,
+        fname: ns + 'log',
+        body: 'git log'
+     },{
+        description: 'Alias for pull',
+        ex: `this is the ${ns}pull help`,
+        fname: ns + 'pull',
+        body: 'git pull'
+     },{
+        description: 'Alias for push',
+        ex: `this is the ${ns}push help`,
+        fname: ns + 'push',
+        body: 'git push'
+     },{
+        description: 'Alias for remote update',
+        ex: `this is the ${ns}up help`,
+        fname: ns + 'up',
+        body: 'git remote update'
+     },{
+        description: 'Alias for saving a stash',
+        ex: `this is the ${ns}ss help`,
+        fname: ns + 'ss',
+        body: 'git stash save'
+     },{
+        description: 'Alias for pop last stash',
+        ex: `this is the ${ns}sp help`,
+        fname: ns + 'ss',
+        body: 'git stash pop'
+     },{
+        description: 'Alias to UNcommit',
+        ex: `this is the ${ns}uncomm help`,
+        fname: ns + 'uncommit',
+        body: 'git reset --hard ^HEAD'
+     }
+     
+     ,{
+        description: 'Alias to stage',
+        ex: `this is the ${ns}add help`,
+        fname: ns + 'add',
+        body: 'git add \${@:-*}'
+     },{
+        description: 'Alias to UNstage',
+        ex: `this is the ${ns}unstage help`,
+        fname: ns + 'unstage',
+        body: 'git reset HEAD -- \${@:-*}'
+     },{
+        description: 'Alias to commit',
+        ex: `this is the ${ns}comm help`,
+        fname: ns + 'comm',
+        body: 'git commit -m \${1:-"empty message"}'
+     },{
+        description: 'Alias to amend last commit message',
+        ex: `this is the ${ns}amend help`,
+        fname: ns + 'amend',
+        body: 'git commit -m \${1:-"empty message"} --amend'
+     },{
+        description: 'Alias to create a new branch and checkout',
+        ex: `this is the ${ns}br help`,
+        fname: ns + 'br',
+        body: 'git checkout -b $1'
+     },{
+        description: 'Alias to delete a branch',
+        ex: `this is the ${ns}brdel help`,
+        fname: ns + 'brdel',
+        body: 'git branch -d $1'
+     },{
+        description: 'Alias to checkout an existing branch',
+        ex: `this is the ${ns}co help`,
+        fname: ns + 'co',
+        body: 'git checkout $1'
+     },{
+        description: 'Alias to revert non staged files passed',
+        ex: `this is the ${ns}rev help`,
+        fname: ns + 'rev',
+        body: 'git checkout -- $@'
+     },{
+        description: 'Alias to revert non staged files passed',
+        ex: `this is the ${ns}rev help`,
+        fname: ns + 'rev',
+        body: 'git checkout -- $@'
+     },{
+        description: 'Alias to add remote',
+        ex: `this is the ${ns}remoteadd help`,
+        fname: ns + 'remoteadd',
+        body: 'git remote add origin $1'
+     },{
+        description: 'Alias to list all help',
+        ex: `this is the ${ns}remoteadd help`,
+        fname: ns + 'remoteadd',
+        body: 'git remote add origin $1'
+     }
+    
+    ],
+     aliasesHead = `
 
-#
-##           dMP     .aMMMb dMMMMMP dMP dMP .aMMMMP dMP dMMMMMMP 
-###         dMP     dMP"dMP  .dMP" dMP.dMP dMP"    amr    dMP    
-####       dMP     dMMMMMP .dMP"   VMMMMP dMP MMP"dMP    dMP     
-###       dMP     dMP dMP.dMP"   dA .dMP dMP.dMP dMP    dMP      
-##       dMMMMMP dMP dMPdMMMMMP  VMMMP"  VMMMP" dMP    dMP    
-#
-
-
-# git straigth alias
-# 
-alias ${ns}init='git init'
-alias ${ns}status='git status'
-alias ${ns}branchls='git branch -a'
-alias ${ns}log='git log'
-alias ${ns}pull='git pull'
-alias ${ns}push='git push'
-alias ${ns}update='git remote update'
-alias ${ns}savestash='git stash save'
-alias ${ns}popstash='git stash pop'
-
-# ============
-# Add to stage
-#
-# otherwise it forwards all params
-# 
-___gadd() {
-    git add \${@:-*}
-}
-alias ${ns}add=___gadd
-
-# =================
-# Unstage something
-#
-___gunst() {
-    git reset HEAD -- \${@:-*}
-}
-alias ${ns}unstage=___gunst
-
-
-# ======
-# Push origin to branch 
-#
-# 
-___gpusho() {
-    git push --set-upstream origin $1
-}
-alias ${ns}pusho=___gpusho
-
-# ======
-# Commit 
-#
-# if a comment is given (within single or double quotes) it uses as message
-# otherwise is left empty
-# 
-___gcomm() {
-    git commit -m \${1:-"empty message"}
-}
-alias ${ns}commit=___gcomm
-
-# ======
-# Amend  
-#
-# replace the commit message
-# 
-___gamend() {
-    git commit -m \${1:-"empty message"} --amend 
-}
-alias ${ns}amend=___gamend
-
-# ==============================
-# Create a branch & check it out
-#
-___gbr() {
-    git checkout -b $1
-}
-alias ${ns}branchnew=___gbr
-
-# ==============================
-# Delete a branch & check it out
-# 
-___gbrdel() {
-    git branch -d $1
-}
-alias ${ns}branchdel=___gbr
-
-# ===========================
-# Checkout an existing branch
-#
-___gco() {
-    git checkout $1
-}
-alias ${ns}checkout=___gco
-
-# ======================
-# Revert the passed file
-# 
-___grev() {
-    git checkout -- $@
-}
-alias ${ns}revert=___grev
-
-# =====
-# Clone
-# 
-___gclo() {
-    git clone $1
-}
-alias ${ns}clone=___gclo
-
-# =====
-# Add remote
-# 
-___gaddrem() {
-    git remote add origin $1
-}
-alias ${ns}addrem=___gaddrem
-
-
-
-
-
-___ghelp() {
-echo ""
-echo "Geed help (v ${version})" 
-echo ""
-echo "# git init   ---------------------> ginit"
-echo "# git status   -------------------> gstatus"
-echo "# git branch -a   ----------------> glsbranch"
-echo "# git log   ----------------------> glog"
-echo "# git pull   ---------------------> gpull"
-echo "# git push   ---------------------> gpush"
-echo "# git push --set-upstream origin [BR]   ---------------------> gpusho [BR]"
-echo "# git remote update   ------------> gupdate"
-echo "# git stash save   ---------------> gsavestash"
-echo "# git stash pop   ----------------> gpopstash"
-echo "# git add [PAR]|*   --------------> gadd {[PAR]}"
-echo "# git reset HEAD -- [PAR]|*   ----> gunstage {[PAR]}"
-echo "# git commit -m \\\"mymsg\\\"|\\\"\\\"   -----> gcommit {\\\"my msg\\\"}"
-echo "# git commit --amend -m \\\"mymsg\\\"|\\\"\\\"   -> gamend {\\\"my msg\\\"}"
-echo "# git branch -b \\\"brName\\\"   -------> gbranchnew \\\"brName\\\""
-echo "# git branch -d \\\"brName\\\"   -------> gbranchdel \\\"brName\\\""
-echo "# git checkout \\\"brName\\\"   --------> gcheckout \\\"brName\\\""
-echo "# git checkout -- [PAR]   --------> grevert [PAR]"
-echo "# git clone REF   ----------------> gclone REF"
-echo "# git remote add origin REF   ----> gaddrem REF"
-echo ""
-echo "more to come"
-echo "...."
-}
-alias ${ns}help=___ghelp   
+     #
+     ##           dMP     .aMMMb dMMMMMP dMP dMP .aMMMMP dMP dMMMMMMP 
+     ###         dMP     dMP"dMP  .dMP" dMP.dMP dMP"    amr    dMP    
+     ####       dMP     dMMMMMP .dMP"   VMMMMP dMP MMP"dMP    dMP     
+     ###       dMP     dMP dMP.dMP"   dA .dMP dMP.dMP dMP    dMP      
+     ##       dMMMMMP dMP dMPdMMMMMP  VMMMP"  VMMMP" dMP    dMP    
+     #     
 
 `;
 
-// console.log('user home = ', uhome);1
+let aliases = (() => {
+    "use strict";
+    let ret = als.reduce((r, al) => {
+        let instr = `
+___${al.fname}() {
+    ${al.body}
+}
+alias ${al.fname}=___${al.fname}
+___${al.fname}H() {
+    echo "${packageInfo.name}"
+    echo "${al.fname}: ${al.description}"
+    echo "${al.ex}"
+}
+alias ${al.fname}-=___${al.fname}H
+        `;
+        return r + "\n" + instr;
+    }, aliasesHead);
+    return ret;
+})();
+
+/**
+ * 
+ */
 class aliasFactory {
     constructor() {
         console.log(`\n# ${packageInfo.name} v ${packageInfo.version} #\n`.rainbow());
     }
-    exec (command, cb) {
-        child_process.exec(command, err => cb(~~err) );
-    }
+    /**
+     * 
+     * @param {*} command 
+     * @param {*} cb 
+     */
     install () {
-        var self = this;
+        let self = this;
         this.findBashConfigFile().then(() => {
             fs.writeFile(dstPath, aliases, err => {
-                if (err) throw err;
-                console.log('- ' + dstPath + ' has been saved!');
+                if (err) {
+                    throw err;
+                }
+                // console.log('- ' + dstPath + ' has been saved!');
                 fs.chmod(dstPath, '0755', (err) => {
-                    if (err) throw err;
-                    console.log('- permissions set');
+                    if (err) {
+                        throw err;
+                    }
+                    // console.log('- permissions set');
                 });
                 self.appendBashGit();
             });
         }).catch(e => {
-            console.log(e)
-        })
+            console.log(e);
+        });
     }
 
+    /**
+     * 
+     */
     uninstall () {
-        var self = this;
+        let self = this;
         this.findBashConfigFile().then(() => {
             fs.unlink(dstPath, err => {
-                if (err) throw err;
-                console.log('- ' + dstPath + ' has been deleted!');
+                if (err) {
+                    throw err;
+                }
+                // console.log('- ' + dstPath + ' has been deleted!');
                 self.unappendBashGit();
             });
         }).catch(e => {
-            console.log(e)
-        })
+            console.log(e);
+        });
     }
 
+    /**
+     * 
+     */
     findBashConfigFile() {
-        return new Promise((solve, reject) => {
+        return new mPromise((solve, reject) => {
             let found = false;
             trg.mac.forEach(function(element, i) {
-                if (found) return;
+                if (found) {
+                    return;
+                }
                 const fname = path.resolve(element);
                 fs.exists(fname, exists => {
                     if (exists){
@@ -221,48 +224,57 @@ class aliasFactory {
                         this.file = fname;
                         solve();
                     } else {
-                        if (!found && i == trg.mac.length - 1) reject(`Bash file not found ... create ${trg.mac[0]} and rerun`);
+                        if (!found && i === trg.mac.length - 1) {
+                            reject(`Bash file not found ... create ${trg.mac[0]} and rerun`);
+                        }
                     }
                 });
             }, this);
-            // 
+        });
+    }
+    
+    /**
+     * 
+     */
+    appendBashGit() {
+        const self = this,
+            bash_path = "\n. " + dstFile;
+        fs.appendFile(this.file, bash_path, err => {
+            if (err) {
+                throw err;
+            }
+            console.log('Successfully installed'.green());
+            self.end();
         });
     }
 
-    appendBashGit() {
-        var self = this;
-        const bash_path = "\n. " + dstFile;
-        fs.appendFile(this.file, bash_path, err => {
-            if (err) throw err;
-            self.exec(bash_path, code => {
-                if (code == 0) {
-                    console.log('Successfully installed'.green())
-                } else {
-                    console.log(`Error: process terminated with code ${code}`);
+    /**
+     * 
+     */
+    unappendBashGit() {
+        const self = this,
+            bash_path = '. ' + dstFile;
+
+        fs.readFile(self.file, 'UTF-8',  (err, data) => {
+            if (err) {
+                throw err;
+            }
+            data = data.replace(bash_path, '');
+            fs.writeFile(self.file, data, err => {
+                if (err) {
+                    throw err;
                 }
+                console.log('Successfully UNinstalled'.green());
+                self.end();
             });
         });
     }
-    unappendBashGit() {
-        var self = this;
-        const bash_path = '. ' + dstFile;
 
-        fs.readFile(self.file, 'UTF-8',  (err, data) => {
-            if (err) throw err;
-            data = data.replace(bash_path, '');
-            fs.writeFile(self.file, data, err => {
-                if (err) throw err;
-                else {
-                    self.exec(self.file, code => {
-                        if (code == 0) {
-                            console.log('Successfully UNinstalled'.green())
-                        } else {
-                            console.log(`Error: process terminated with code ${code}`);
-                        }
-                    });
-                }
-            })
-        });
+
+
+
+    end() {
+        console.log("\n>>> Do not forget to restart the terminal\n");
     }
 }
 
