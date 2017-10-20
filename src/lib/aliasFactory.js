@@ -124,6 +124,16 @@ const mPromise = require('./promise'),
         ex: `${ns}tags`,
         fname: ns + 'tags',
         body: 'git tag'
+     },{
+        description: 'Alias to create a patch',
+        ex: `${ns}patchcreate DSTBRANCH PATCHNAME`,
+        fname: ns + 'patchcreate',
+        body: 'git format-patch $1 --stdout > PATCHFILE'
+     },{
+        description: 'Alias to apply a patch',
+        ex: `${ns}patchapply PATCHFILE`,
+        fname: ns + 'patchapply',
+        body: 'git apply --stat $1'
      }
     
     ],
