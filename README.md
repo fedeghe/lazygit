@@ -31,7 +31,7 @@
 | git remote add origin REF | gaddrem REF |
 | git tag -a TAGNAME | gtag TAGNAME |
 | git format-patch  BRANCHX --stdout > PATCHFILE | gpatchcreate BRANCHX PATCHFILE |
-| git apply --stat PATCHFILE | patchapply PATCHFILE |
+| git apply --stat PATCHFILE | gpatchapply PATCHFILE |
 
 If You have doubts about what the command execute just add a dash at the end:  
 
