@@ -15,7 +15,7 @@
 | git log | glog |
 | git pull | gpull |
 | git push | gpush |
-| git push --set-upstream origin DEV | gpush DEV |
+| git push --set-upstream origin DEV | gpushsu DEV |
 | git remote update | gup |
 | git stash save | gss |
 | git stash pop | gps |
