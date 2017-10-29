@@ -40,6 +40,11 @@ const mPromise = require('./promise'),
         fname: ns + 'pull',
         body: 'git pull'
      },{
+        description: 'Alias for first push setting upstream',
+        ex: `$ ${ns}pushsu BRANCHNAME`,
+        fname: ns + 'pushsu',
+        body: 'git push --set-upstream origin $1'
+     },{
         description: 'Alias for push',
         ex: `$ ${ns}push`,
         fname: ns + 'push',
