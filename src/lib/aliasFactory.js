@@ -121,9 +121,9 @@ const mPromise = require('./promise'),
         body: 'git remote add origin $1'
      },{
         description: 'Alias to create a tag',
-        ex: `${ns}tag TAGNAME`,
+        ex: `${ns}tag TAGNAME MESSAGE`,
         fname: ns + 'tag',
-        body: 'git tag -a $1'
+        body: 'git tag -a $1 -m \${2:-"empty_message"}'
      },{
         description: 'Alias to list all tags',
         ex: `${ns}tags`,
