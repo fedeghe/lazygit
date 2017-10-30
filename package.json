@@ -1,6 +1,6 @@
 {
   "name": "lazygit",
-  "version": "0.0.8",
+  "version": "1.0.0",
   "description": "git common commands the speed of light",
   "scripts": {
     "postinstall": "node src/lazygit.js"
