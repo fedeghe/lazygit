@@ -130,6 +130,16 @@ const mPromise = require('./promise'),
         fname: ns + 'tags',
         body: 'git tag'
      },{
+        description: 'Alias to push all local tags',
+        ex: `${ns}tagsup`,
+        fname: ns + 'tagsup',
+        body: 'git push --tags'
+     },{
+        description: 'Alias to push one local tag',
+        ex: `${ns}tagup TAGNAME`,
+        fname: ns + 'tagup',
+        body: 'git push origin $1'
+     },{
         description: 'Alias to create a patch',
         ex: `${ns}patchcreate DSTBRANCH PATCHNAME`,
         fname: ns + 'patchcreate',

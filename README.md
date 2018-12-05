@@ -31,6 +31,8 @@
 | git clone REF | gclone REF |
 | git remote add origin REF | gaddrem REF |
 | git tag -a TAGNAME | gtag TAGNAME |
+| git push --tags | gtagsup |
+| git push origin TAGNAME | gtagup TAGNAME |
 | git format-patch  BRANCHX --stdout > PATCHFILE | gpatchcreate BRANCHX PATCHFILE |
 | git apply --stat PATCHFILE | gpatchapply PATCHFILE |
 
