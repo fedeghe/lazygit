@@ -29,7 +29,7 @@
 | git checkout "brName" | gco "brName" |
 | git checkout -- [PAR] | grev [PAR] |
 | git clone REF | gclone REF |
-| git remote add origin REF | gaddrem REF |
+| git remote add origin REF | gaddrem REF | 
 | git tag -a TAGNAME | gtag TAGNAME |
 | git push --tags | gtagsup |
 | git push origin TAGNAME | gtagup TAGNAME |
