@@ -19,7 +19,7 @@
 | git remote update | gup |
 | git stash save | gss |
 | git stash pop | gps |
-| git reset --hard ^HEAD | guncomm |
+| git reset --hard ^HEAD | guncomm | 
 | git add [PAR or *] | gadd {[PAR]} |
 | git reset HEAD -- [PAR or *] | gunst {[PAR]} |
 | git commit -m "mymsg\_no\_spaces" | gcomm {"mymsg\_no\_spaces"} |
