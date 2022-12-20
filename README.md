@@ -35,6 +35,7 @@
 | git push origin TAGNAME | gtagup TAGNAME |
 | git format-patch  BRANCHX --stdout > PATCHFILE | gpatchcreate BRANCHX PATCHFILE |
 | git apply --stat PATCHFILE | gpatchapply PATCHFILE |
+| git merge master | gmm |
 
 If You have doubts about what the command execute just add a dash at the end:  
 

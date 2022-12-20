@@ -149,6 +149,11 @@ const mPromise = require('./promise'),
         ex: `${ns}patchapply PATCHFILE`,
         fname: ns + 'patchapply',
         body: 'git apply --stat $1'
+     },{
+        description: 'Merge master in current branch',
+        ex: `${ns}mm`,
+        fname: ns + 'mm',
+        body: 'git merge master'
      }
     
     ],
