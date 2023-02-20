@@ -11,7 +11,8 @@ const mPromise = require('./promise'),
     trg = {
         mac : [
             uhome + '/.bash_rc',
-            uhome + '/.bash_profile'
+            uhome + '/.bash_profile',
+            uhome + '/.zshrc',
         ]
     },
     als= [{
