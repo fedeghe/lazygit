@@ -142,13 +142,13 @@ const mPromise = require('./promise'),
         body: 'git push origin $1'
      },{
         description: 'Alias to create a patch',
-        ex: `${ns}patchcreate DSTBRANCH PATCHNAME`,
-        fname: ns + 'patchcreate',
-        body: 'git format-patch $1 --stdout > PATCHFILE'
+        ex: `${ns}patchc PATCHNAME`,
+        fname: ns + 'patchc',
+        body: 'git diff > $1'
      },{
         description: 'Alias to apply a patch',
-        ex: `${ns}patchapply PATCHFILE`,
-        fname: ns + 'patchapply',
+        ex: `${ns}patcha PATCHFILE`,
+        fname: ns + 'patcha',
         body: 'git apply --stat $1'
      },{
         description: 'Merge master in current branch',
@@ -175,6 +175,8 @@ let aliases = (() => {
     let ret = als.reduce((r, al) => {
         let instr = `
 ___${al.fname}() {
+    echo "${"Lazygit runs:".rainbow()} ${al.body}"
+    echo "------"
     ${al.body}
 }
 alias ${al.fname}=___${al.fname}
@@ -190,18 +192,11 @@ alias ${al.fname}-=___${al.fname}H
     return ret;
 })();
 
-/**
- * 
- */
 class aliasFactory {
     constructor() {
         console.log(`\n# ${packageInfo.name} v ${version} #\n`.rainbow());
     }
-    /**
-     * 
-     * @param {*} command 
-     * @param {*} cb 
-     */
+    
     install () {
         let self = this;
         this.findBashConfigFile().then(() => {
@@ -209,12 +204,10 @@ class aliasFactory {
                 if (err) {
                     throw err;
                 }
-                // console.log('- ' + dstPath + ' has been saved!');
                 fs.chmod(dstPath, '0755', (err) => {
                     if (err) {
                         throw err;
                     }
-                    // console.log('- permissions set');
                 });
                 self.appendBashGit();
             });
@@ -223,9 +216,6 @@ class aliasFactory {
         });
     }
 
-    /**
-     * 
-     */
     uninstall () {
         let self = this;
         this.findBashConfigFile().then(() => {
@@ -241,11 +231,8 @@ class aliasFactory {
         });
     }
 
-    /**
-     * 
-     */
     findBashConfigFile() {
-        return new mPromise((solve, reject) => {
+        return new Promise((solve, reject) => {
             let found = false;
             trg.mac.forEach(function(element, i) {
                 if (found) {
@@ -259,7 +246,7 @@ class aliasFactory {
                         solve();
                     } else {
                         if (!found && i === trg.mac.length - 1) {
-                            reject(`Bash file not found ... create ${trg.mac[0]} and rerun`);
+                            reject(`Bash file not found ... create one among ${trg.mac.join(', ')} and rerun`);
                         }
                     }
                 });
@@ -267,9 +254,6 @@ class aliasFactory {
         });
     }
     
-    /**
-     * 
-     */
     appendBashGit() {
         const self = this,
             bash_path = "\n. " + dstFile;
@@ -282,9 +266,6 @@ class aliasFactory {
         });
     }
 
-    /**
-     * 
-     */
     unappendBashGit() {
         const self = this,
             bash_path = '. ' + dstFile;
@@ -303,9 +284,6 @@ class aliasFactory {
             });
         });
     }
-
-
-
 
     end() {
         console.log("\n>>> Do not forget to restart the terminal\n");

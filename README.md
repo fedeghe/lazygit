@@ -33,8 +33,8 @@
 | git tag -a TAGNAME | gtag TAGNAME |
 | git push --tags | gtagsup |
 | git push origin TAGNAME | gtagup TAGNAME |
-| git format-patch  BRANCHX --stdout > PATCHFILE | gpatchcreate BRANCHX PATCHFILE |
-| git apply --stat PATCHFILE | gpatchapply PATCHFILE |
+| git diff > PATCHFILE | gpatchc PATCHFILE |
+| git apply --stat PATCHFILE | gpatcha PATCHFILE |
 | git merge master | gmm |
 
 If You have doubts about what the command execute just add a dash at the end:  
